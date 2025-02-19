@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RGB Color Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+        #colorPicker {
+            margin: 20px;
+        }
+        #rgbValue {
+            font-family: monospace;
+            padding: 10px;
+            background: #eee;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .copy-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .copy-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>RGB Color Picker for Roblox UI</h2>
+        <input type="color" id="colorPicker" value="#ff0000">
+        <div id="rgbValue">Color3.fromRGB(255, 0, 0)</div>
+        <button class="copy-button" onclick="copyColor()">Copy Color Code</button>
+    </div>
+
+    <script>
+        const picker = document.getElementById('colorPicker');
+        const output = document.getElementById('rgbValue');
+
+        picker.addEventListener('input', function(e) {
+            const color = e.target.value;
+            const r = parseInt(color.substr(1,2), 16);
+            const g = parseInt(color.substr(3,2), 16);
+            const b = parseInt(color.substr(5,2), 16);
+            output.textContent = `Color3.fromRGB(${r}, ${g}, ${b})`;
+        });
+
+        function copyColor() {
+            const colorText = document.getElementById('rgbValue').textContent;
+            navigator.clipboard.writeText(colorText);
+            
+            const button = document.querySelector('.copy-button');
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy Color Code';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
